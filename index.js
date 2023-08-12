@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { STLLoader } from 'three/examples/jsm/loaders/STLLoader'
 
 const container = document.getElementById("container");
 const innerWidth = container.clientWidth;
@@ -15,11 +16,24 @@ const camera = new THREE.PerspectiveCamera( 75, innerWidth / innerHeight, 0.1, 1
 const controls = new OrbitControls( camera, renderer.domElement );
 
 const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+const material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
 
-camera.position.z = 5;
+const loader = new STLLoader()
+loader.load(
+    'lantern.stl',
+    function (geometry) {
+        const mesh = new THREE.Mesh(geometry, material)
+        scene.add(mesh)
+    },
+    (xhr) => {
+        console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+    },
+    (error) => {
+        console.log(error)
+    }
+)
+
+camera.position.set( 100, -180, 90 );
 controls.update();
 
 function animate() {

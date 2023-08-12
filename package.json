@@ -1,0 +1,23 @@
+{
+  "name": "cgproject.github.io",
+  "version": "1.0.0",
+  "description": "First git clone the files, then open it with IDE you like(vscode). Then open it with live server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nanli9/CGProject.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nanli9/CGProject.github.io/issues"
+  },
+  "homepage": "https://github.com/nanli9/CGProject.github.io#readme",
+  "dependencies": {
+    "gh-pages": "^6.0.0"
+  }
+}

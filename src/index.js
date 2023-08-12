@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { STLLoader } from 'three/examples/jsm/loaders/STLLoader'
+import { STLLoader } from 'three/addons/loaders/STLLoader.js';
 
 const container = document.getElementById("container");
 const innerWidth = container.clientWidth;

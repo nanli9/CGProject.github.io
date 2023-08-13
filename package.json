@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/nanli9/CGProject.github.io#readme",
   "dependencies": {
-    "gh-pages": "^6.0.0"
+    "gh-pages": "^6.0.0",
+    "shaderfrog-runtime": "^0.2.0"
   }
 }

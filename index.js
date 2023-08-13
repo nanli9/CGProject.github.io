@@ -5,7 +5,7 @@ import {OBJLoader} from 'three/addons/loaders/OBJLoader.js';
 import {MTLLoader} from 'three/addons/loaders/MTLLoader.js';
 
 var mesh;
-const planeSize = 400;
+const planeSize = 10;
 const textureloader = new THREE.TextureLoader();
 
 const container = document.getElementById("container");
@@ -20,7 +20,7 @@ container.appendChild( renderer.domElement );
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, innerWidth / innerHeight, 0.1, 1000 );
 const controls = new OrbitControls( camera, renderer.domElement );
-camera.position.set( 100, 100, 90 );
+camera.position.set( 1, 1, 9 );
 controls.update();
 
 // const geometry = new THREE.BoxGeometry( 1, 1, 1 );
@@ -80,8 +80,8 @@ STLloader.load(
     function (geometry) {
         mesh = new THREE.Mesh(geometry,material);
         mesh.rotation.x = -Math.PI / 2;
-        mesh.position.set( 50, 50, 50 );
-        mesh.scale.set(0.5,0.5,0.5);
+        mesh.position.set( 3, 2.5, 1 );
+        mesh.scale.set(0.02,0.02,0.02);
         scene.add(mesh)
     },
     (xhr) => {
@@ -98,6 +98,7 @@ mtlLoader.load('assets/Lantern_OBJ.mtl', (mtl) => {
   objLoader.setMaterials(mtl);
   //Lantern_low_Lantern_BaseColor.png
   objLoader.load('assets/Lantern_OBJ.obj', (root) => {
+    root.scale.set(0.05,0.05,0.05);
     scene.add(root);
   });
 });

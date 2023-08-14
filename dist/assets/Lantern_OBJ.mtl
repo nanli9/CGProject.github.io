@@ -10,3 +10,5 @@ newmtl Lantern_lowSG
     norm Lantern_low_Lantern_Normal.png
     map_Pm Lantern_low_Lantern_Metallic.png
     map_Pr Lantern_low_Lantern_Roughness.png
+    aniso Lantern_low_Lantern_AO.png
+    map_Ps Lantern_low_Lantern_Height.png

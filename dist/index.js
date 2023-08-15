@@ -4,7 +4,7 @@ import { STLLoader } from 'three/addons/loaders/STLLoader.js';
 import {OBJLoader} from 'three/addons/loaders/OBJLoader.js';
 import {MTLLoader} from 'three/addons/loaders/MTLLoader.js';
 
-var bead,maincube,tassels,woodframe,topcube;
+var bead,maincube,tassels,woodframe,topcube,ring,handler;
 let i =2;
 let lightMoveSpeed=0.0;
 let lanternrotateSpeed=0.0;
@@ -32,7 +32,7 @@ container.appendChild( renderer.domElement );
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, innerWidth / innerHeight, 0.1, 1000 );
 const controls = new OrbitControls( camera, renderer.domElement );
-camera.position.set( 1, 1, 9 );
+camera.position.set( 1, 2, 8 );
 controls.update();
 
 // const geometry = new THREE.BoxGeometry( 1, 1, 1 );
@@ -131,25 +131,16 @@ function loadLantern(){
             console.log(error)
         }
     )
-    STLloader.load(
-        'assets/lantern/maincube.stl',
-        function (geometry) {
-            const material = new THREE.MeshPhongMaterial( { color:0xefc090} );
-            maincube = new THREE.Mesh(geometry,material);
-            maincube.rotation.x = -Math.PI / 2;
-            //mesh.position.set( 3, 2.5, 1 );
-            maincube.position.set( 0, 2.5, 1 );
-            maincube.scale.set(0.02,0.02,0.02);
-            maincube.castShadow = true;
-            scene.add(maincube);
-        },
-        (xhr) => {
-            console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
-        },
-        (error) => {
-            console.log(error)
-        }
-    )
+    //add main cube
+    const texture = textureloader.load( 'https://images.pexels.com/photos/1205301/pexels-photo-1205301.jpeg' );
+    const normalMap = textureloader.load( 'assets/normal_map_paper.jpg' );
+    maincube=new THREE.Mesh( new THREE.BoxGeometry(32, 32, 60 ), new THREE.MeshPhongMaterial( { normalMap:normalMap} ));
+    maincube.rotation.x = -Math.PI / 2;
+    maincube.position.set( 0, 2.5, 1 );
+    maincube.scale.set(0.02,0.02,0.02);
+    maincube.castShadow = true;
+    scene.add(maincube) ;
+    
     STLloader.load(
         'assets/lantern/tassels.stl',
         function (geometry) {
@@ -207,8 +198,52 @@ function loadLantern(){
             console.log(error)
         }
     )
-    // //load texture
-    // const texture = textureloader.load( 'https://images.pexels.com/photos/1205301/pexels-photo-1205301.jpeg' );
+    STLloader.load(
+        'assets/lantern/ring.stl',
+        function (geometry) {
+            const material = new THREE.MeshStandardMaterial ( { color:0xefc090 ,
+
+                roughness: 0.4,
+                metalness: 1,
+            
+                } );
+            ring = new THREE.Mesh(geometry,material);
+            ring.rotation.x = -Math.PI / 2;
+            //mesh.position.set( 3, 2.5, 1 );
+            ring.position.set( 0, 2.5, 1 );
+            ring.scale.set(0.02,0.02,0.02);
+            ring.castShadow = true;
+            scene.add(ring);
+        },
+        (xhr) => {
+            console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+        },
+        (error) => {
+            console.log(error)
+        }
+    )
+    STLloader.load(
+        'assets/lantern/handler.stl',
+        function (geometry) {
+            const material = new THREE.MeshStandardMaterial ( { color:0xefc090 ,
+                roughness: 0.4,
+                metalness: 1,
+                } );
+            handler = new THREE.Mesh(geometry,material);
+            handler.rotation.x = -Math.PI / 2;
+            //mesh.position.set( 3, 2.5, 1 );
+            handler.position.set( 0, 2.5, 1 );
+            handler.scale.set(0.02,0.02,0.02);
+            handler.castShadow = true;
+            scene.add(handler);
+        },
+        (xhr) => {
+            console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+        },
+        (error) => {
+            console.log(error)
+        }
+    )
 }
 
 const mtlLoader = new MTLLoader();
@@ -237,12 +272,14 @@ function animate() {
     i+=lightMoveSpeed;
     light.position.set(i, 5, 0);
     updateLight(i);
-    if(bead&&maincube&&tassels&&topcube&&woodframe){
+    if(bead&&maincube&&tassels&&topcube&&woodframe&&ring&&handler){
         bead.rotation.z+=lanternrotateSpeed;
         maincube.rotation.z+=lanternrotateSpeed;
         tassels.rotation.z+=lanternrotateSpeed;
         topcube.rotation.z+=lanternrotateSpeed;
         woodframe.rotation.z+=lanternrotateSpeed;
+        ring.rotation.z+=lanternrotateSpeed;
+        handler.rotation.z+=lanternrotateSpeed;
     }
 	controls.update();
 	renderer.render( scene, camera );

@@ -1,3 +1,9 @@
 # CGProject.github.io
-## How to run the program
-First git clone the files, then open it with IDE you like(vscode). Then open it with live server.
+## Contributors
+<p>Nan Li</p>
+<p>Dennis Lam</p>
+<p>Ji Min</p>
+<p>Harper Li</p>
+
+### Local project presentation
+Open index.html with live server plug-in in IDE.
